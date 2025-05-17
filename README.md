@@ -1,50 +1,104 @@
-# Welcome to your Expo app 👋
+# 🌙 Lumina – Daily Mood Journal App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+**Lumina** is a simple and calming mood journaling app that helps you track your emotions, triggers, and habits to better understand your mental well-being.
 
-## Get started
+Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothing interface with useful insights to support your daily self-reflection practice.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## ✨ Features
 
-2. Start the app
+- 📝 **Daily Mood Logging** – Record how you feel in seconds
+- 🔄 **Trigger & Habit Tracking** – Identify patterns over time
+- 📊 **Mood Analytics** – Visualize your emotional trends
+- 🌗 **Light & Dark Mode Support**
+- 🔔 **Daily Reminders** – Stay consistent with gentle prompts
+- 📱 **Minimal, Reflective Design** – A calm space for your thoughts
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 📷 Screenshots
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Coming soon...
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🚀 Getting Started
 
-When you're ready, run:
+### 1. Clone the Repository
 
 ```bash
-npm run reset-project
+git clone https://github.com/yommexg/lumina-daily-mood-journal.git
+cd lumina-daily-mood-journal
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Install Dependencies
 
-## Learn more
+```bash
+npm install
+# or
+yarn
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Start the App
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+---
 
-Join our community of developers creating universal apps.
+## 🫱‍♂️ Tech Stack
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo](https://expo.dev/) (React Native)
+- Zustand (State Management)
+- React Navigation (Expo Router)
+- Expo Image / Font / SplashScreen
+
+---
+
+## 📁 Project Structure
+
+```
+.
+├── app/                 # Screens & Routes (expo-router)
+├── components/          # Reusable UI components
+├── assets/              # Fonts, images, and icons
+├── store/               # Zustand store (mood, habits, etc.)
+├── utils/               # Utility functions (dates, charts)
+├── app.json             # App config (splash, icon, etc.)
+```
+
+---
+
+## 🎈 Theming
+
+Lumina supports both **light** and **dark** modes using custom `ThemedText` and `ThemedView` components. You can find them in:
+
+```ts
+/components/TTdeeehmtx.tsx / components / ThemedView.tsx;
+```
+
+---
+
+## 📦 Dependencies
+
+```json
+"expo": "~50.x",
+"expo-router": "^3.x",
+"expo-splash-screen": "~0.20.x",
+"expo-font": "~11.x",
+"expo-image": "^1.x",
+"zustand": "^4.x",
+"react-native-reanimated": "~3.x"
+```
+
+---
+
+## 🔒 License
+
+MIT License © 2025
+
+---
+
+> Lumina is your daily space to reflect, understand, and grow — one mood at a time.
