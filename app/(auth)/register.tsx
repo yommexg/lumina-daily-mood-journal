@@ -18,12 +18,19 @@ import {
 
 WebBrowser.maybeCompleteAuthSession();
 
-export default function LoginScreen() {
+export default function RegisterScreen() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-  const handleEmailLogin = () => {
-    console.log("Email Login with:", email, password);
+  const handleRegister = () => {
+    if (password !== confirmPassword) {
+      console.warn("Passwords do not match.");
+      return;
+    }
+
+    console.log("Register with:", name, email, password);
   };
 
   return (
@@ -42,20 +49,27 @@ export default function LoginScreen() {
             contentFit="contain"
           />
           <MotiText>
-            <ThemedText style={styles.title}>Welcome to Lumina</ThemedText>
+            <ThemedText style={styles.title}>
+              Create your Lumina account
+            </ThemedText>
           </MotiText>
           <MotiText style={styles.subtitle}>
-            Reflect, track, and understand your mood.
+            Let’s get started on your mood journey.
           </MotiText>
         </MotiView>
-
-        {/* Email Login */}
 
         <MotiView
           from={{ opacity: 0, translateY: 20 }}
           animate={{ opacity: 1, translateY: 0 }}
           transition={{ delay: 600 }}
           style={styles.form}>
+          <ThemedTextInput
+            placeholder="Full Name"
+            placeholderTextColor="grey"
+            value={name}
+            onChangeText={setName}
+            style={styles.input}
+          />
           <ThemedTextInput
             placeholder="Email"
             placeholderTextColor="grey"
@@ -73,16 +87,24 @@ export default function LoginScreen() {
             secureTextEntry
             style={styles.input}
           />
+          <ThemedTextInput
+            placeholder="Confirm Password"
+            placeholderTextColor="grey"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+            style={styles.input}
+          />
           <TouchableOpacity
-            onPress={handleEmailLogin}
-            style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Login</Text>
+            onPress={handleRegister}
+            style={styles.registerButton}>
+            <Text style={styles.registerButtonText}>Register</Text>
           </TouchableOpacity>
         </MotiView>
 
         <ThemedText style={styles.orText}>or</ThemedText>
 
-        {/* Google Login */}
+        {/* Google Signup */}
         <TouchableOpacity style={styles.googleButton}>
           <Ionicons
             name="logo-google"
@@ -90,14 +112,15 @@ export default function LoginScreen() {
             color={primaryColor}
           />
           <ThemedText style={styles.googleButtonText}>
-            Sign in with Google
+            Sign up with Google
           </ThemedText>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
+        {/* Link to Login */}
+        <TouchableOpacity onPress={() => router.replace("/(auth)/login")}>
           <ThemedText style={styles.createAccountText}>
-            Don’t have an account?{" "}
-            <Text style={styles.createLink}>Create one</Text>
+            Already have an account?{" "}
+            <Text style={styles.createLink}>Log in</Text>
           </ThemedText>
         </TouchableOpacity>
       </ThemedView>
@@ -121,9 +144,10 @@ const styles = StyleSheet.create({
     height: 200,
   },
   title: {
-    fontSize: 30,
+    fontSize: 26,
     fontWeight: "600",
     marginTop: 16,
+    textAlign: "center",
   },
   subtitle: {
     fontSize: 12,
@@ -145,13 +169,13 @@ const styles = StyleSheet.create({
     borderColor: "#2C2C2E",
     fontSize: 15,
   },
-  loginButton: {
+  registerButton: {
     backgroundColor: primaryColor,
     paddingVertical: 14,
     borderRadius: 12,
     alignItems: "center",
   },
-  loginButtonText: {
+  registerButtonText: {
     color: "#FFF",
     fontWeight: "600",
     fontSize: 16,
@@ -180,7 +204,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "grey",
   },
-
   createLink: {
     color: primaryColor,
     fontWeight: "600",

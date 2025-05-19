@@ -9,6 +9,12 @@ export default function AuthLayout() {
           headerShown: false,
         }}
       />
+      <Tabs.Screen
+        name="register"
+        options={{
+          headerShown: false,
+        }}
+      />
     </Stack>
   );
 }
