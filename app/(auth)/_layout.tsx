@@ -4,7 +4,7 @@ export default function AuthLayout() {
   return (
     <Stack>
       <Tabs.Screen
-        name="welcome"
+        name="login"
         options={{
           headerShown: false,
         }}
