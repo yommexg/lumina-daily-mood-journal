@@ -41,7 +41,7 @@ export default function RegisterScreen() {
           transition={{ type: "timing", duration: 1000 }}
           style={styles.header}>
           <Image
-            source={require("@/assets/images/icon.png")}
+            source={require("@/assets/images/logo.png")}
             style={styles.logo}
             contentFit="contain"
           />
