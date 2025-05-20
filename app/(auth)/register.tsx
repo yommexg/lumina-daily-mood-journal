@@ -1,8 +1,5 @@
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedTextInput } from "@/components/ThemedTextInput";
-import { ThemedView } from "@/components/ThemedView";
-import { primaryColor } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { MotiText, MotiView } from "moti";
@@ -14,6 +11,11 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedTextInput } from "@/components/ThemedTextInput";
+import { ThemedView } from "@/components/ThemedView";
+import { primaryColor } from "@/constants/Colors";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -28,6 +30,16 @@ export default function RegisterScreen() {
     }
 
     console.log("Register with:", name, email, password);
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log("User info:", userInfo);
+    } catch (error: any) {
+      console.error("Google Sign-In Error:", error);
+    }
   };
 
   return (
@@ -102,7 +114,9 @@ export default function RegisterScreen() {
         <ThemedText style={styles.orText}>or</ThemedText>
 
         {/* Google Signup */}
-        <TouchableOpacity style={styles.googleButton}>
+        <TouchableOpacity
+          style={styles.googleButton}
+          onPress={signInWithGoogle}>
           <Ionicons
             name="logo-google"
             size={20}
