@@ -17,12 +17,6 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 
 ---
 
-## 📷 Screenshots
-
-Coming soon...
-
----
-
 ## 🚀 Getting Started
 
 ### 1. Clone the Repository

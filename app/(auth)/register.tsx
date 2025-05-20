@@ -5,7 +5,6 @@ import { primaryColor } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import * as WebBrowser from "expo-web-browser";
 import { MotiText, MotiView } from "moti";
 import { useState } from "react";
 import {
@@ -15,8 +14,6 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-
-WebBrowser.maybeCompleteAuthSession();
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -64,7 +61,7 @@ export default function RegisterScreen() {
           transition={{ delay: 600 }}
           style={styles.form}>
           <ThemedTextInput
-            placeholder="Full Name"
+            placeholder="Username"
             placeholderTextColor="grey"
             value={name}
             onChangeText={setName}
