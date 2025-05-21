@@ -1,6 +1,7 @@
 import axios, { isAxiosError } from "axios";
 import { create } from "zustand";
 
+import Toast from "react-native-toast-message";
 import { BASE_URL } from "./baseApi";
 
 interface AuthState {
@@ -67,10 +68,19 @@ export const authStore = create<AuthState>((set) => ({
       console.log(response);
     } catch (error) {
       if (isAxiosError(error)) {
-        console.log("Register error: ", error.response?.data?.message);
+        const errorMSg = error.response?.data?.message;
+        Toast.show({
+          type: "error",
+          text1: errorMSg,
+        });
+        // console.error("Register error: ", error);
         return;
       }
-      console.log(error);
+      Toast.show({
+        type: "error",
+        text1: "Server Error",
+      });
+      //   console.error(error);
     } finally {
       set({ isLoading: false });
     }
