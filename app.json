@@ -43,8 +43,7 @@
       "router": {},
       "eas": {
         "projectId": "3a5ad681-7dc7-419d-9bb6-875dfbe04087"
-      },
-      "googleClientId": "796612506572-igdblhj8m5c6jiqdec69uv98gn0i7fdp.apps.googleusercontent.com"
+      }
     },
     "runtimeVersion": {
       "policy": "appVersion"

@@ -1,3 +1,4 @@
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -10,7 +11,7 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 
-// const googleAuthClientID = process.env.EXPO_PUBLIC_GOOGLE_AUTH_CLIENT_ID;
+const googleAuthClientID = process.env.EXPO_PUBLIC_GOOGLE_AUTH_CLIENT_ID;
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -22,10 +23,10 @@ export default function RootLayout() {
     return null;
   }
 
-  // GoogleSignin.configure({
-  //   webClientId: googleAuthClientID,
-  //   offlineAccess: true,
-  // });
+  GoogleSignin.configure({
+    webClientId: googleAuthClientID,
+    offlineAccess: false,
+  });
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>

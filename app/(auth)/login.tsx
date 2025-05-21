@@ -3,6 +3,7 @@ import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { MotiText, MotiView } from "moti";
@@ -21,6 +22,23 @@ export default function LoginScreen() {
 
   const handleEmailLogin = () => {
     console.log("Email Login with:", email, password);
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true,
+      });
+      const userInfo = await GoogleSignin.signIn();
+      const idToken = userInfo.data?.idToken;
+      const user = userInfo.data?.user;
+
+      console.log(idToken, user);
+
+      await GoogleSignin.signOut();
+    } catch (error: any) {
+      console.log("Google Sign-In Error", error.code, error.message);
+    }
   };
 
   return (
@@ -80,7 +98,9 @@ export default function LoginScreen() {
         <ThemedText style={styles.orText}>or</ThemedText>
 
         {/* Google Login */}
-        <TouchableOpacity style={styles.googleButton}>
+        <TouchableOpacity
+          style={styles.googleButton}
+          onPress={signInWithGoogle}>
           <Ionicons
             name="logo-google"
             size={20}
