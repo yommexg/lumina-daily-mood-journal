@@ -16,6 +16,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
+import { authStore } from "@/store/authStore";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -23,13 +24,20 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const { registerWithEmail } = authStore();
+
   const handleRegister = () => {
+    if (!name || !email || !password || !confirmPassword) {
+      console.warn("Incomplete Details");
+      return;
+    }
+
     if (password !== confirmPassword) {
       console.warn("Passwords do not match.");
       return;
     }
 
-    console.log("Register with:", name, email, password);
+    registerWithEmail(name, email, password);
   };
 
   const signUpWithGoogle = async () => {
@@ -38,10 +46,9 @@ export default function RegisterScreen() {
         showPlayServicesUpdateDialog: true,
       });
       const userInfo = await GoogleSignin.signIn();
-      const idToken = userInfo.data?.idToken;
       const user = userInfo.data?.user;
 
-      console.log(idToken, user);
+      console.log(user);
 
       await GoogleSignin.signOut();
     } catch (error: any) {
