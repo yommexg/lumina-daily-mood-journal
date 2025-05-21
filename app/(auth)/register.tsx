@@ -18,6 +18,7 @@ import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
 import { authStore } from "@/store/authStore";
+import Toast from "react-native-toast-message";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -25,16 +26,22 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { isLoading, register } = authStore();
+  const { isLoading, register, registerWithGoogle } = authStore();
 
   const handleRegister = () => {
     if (!name || !email || !password || !confirmPassword) {
-      console.warn("Incomplete Details");
+      Toast.show({
+        type: "info",
+        text1: "Incomplete Details",
+      });
       return;
     }
 
     if (password !== confirmPassword) {
-      console.warn("Passwords do not match.");
+      Toast.show({
+        type: "info",
+        text1: "Passwords do not match",
+      });
       return;
     }
 
@@ -49,12 +56,12 @@ export default function RegisterScreen() {
       const userInfo = await GoogleSignin.signIn();
       const user = userInfo.data?.user;
 
-      console.log(user);
-
-      await GoogleSignin.signOut();
+      user?.email &&
+        (await registerWithGoogle(user?.givenName, user?.email, user?.photo));
     } catch (error: any) {
       console.log("Google Sign-In Error", error.code, error.message);
     }
+    await GoogleSignin.revokeAccess();
   };
 
   return (

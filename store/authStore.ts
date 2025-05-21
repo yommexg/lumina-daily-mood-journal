@@ -9,8 +9,13 @@ interface AuthState {
   user: string;
   token: string | null;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
+  registerWithGoogle: (
+    name: string | null | undefined,
+    email: string,
+    avatar: string | null
+  ) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   loadToken: () => Promise<void>;
 }
@@ -19,6 +24,89 @@ export const authStore = create<AuthState>((set) => ({
   user: "",
   token: null,
   isLoading: false,
+
+  register: async (name, email, password) => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.post(`${BASE_URL}/api/auth/register`, {
+        name,
+        email,
+        password,
+      });
+
+      router.replace("/(auth)");
+
+      Toast.show({
+        type: "success",
+        text1: response.data?.message,
+      });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const errorMSg = error.response?.data?.message;
+
+        if (error.response?.status === 409) {
+          router.replace("/(auth)");
+        }
+
+        Toast.show({
+          type: "error",
+          text1: errorMSg,
+        });
+        // console.error("Register error: ", error);
+        return;
+      }
+      Toast.show({
+        type: "error",
+        text1: "Server Error",
+      });
+      //   console.error(error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  registerWithGoogle: async (name, email, avatar) => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/auth/register-with-google`,
+        {
+          name,
+          email,
+          avatar,
+        }
+      );
+
+      router.replace("/(auth)");
+
+      Toast.show({
+        type: "success",
+        text1: response.data?.message,
+      });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const errorMSg = error.response?.data?.message;
+
+        if (error.response?.status === 409) {
+          router.replace("/(auth)");
+        }
+
+        Toast.show({
+          type: "error",
+          text1: errorMSg,
+        });
+        // console.error("Register With Google error: ", error);
+        return;
+      }
+      Toast.show({
+        type: "error",
+        text1: "Server Error",
+      });
+      //   console.error(error);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
 
   login: async (user, password) => {
     // set({ isLoading: true });
@@ -52,41 +140,6 @@ export const authStore = create<AuthState>((set) => ({
     // } finally {
     //   set({ isLoading: false });
     // }
-  },
-
-  register: async (name, email, password) => {
-    set({ isLoading: true });
-    try {
-      const response = await axios.post(`${BASE_URL}/api/auth/register`, {
-        name,
-        email,
-        password,
-      });
-
-      router.replace("/(auth)");
-
-      Toast.show({
-        type: "success",
-        text1: response.data?.message,
-      });
-    } catch (error) {
-      if (isAxiosError(error)) {
-        const errorMSg = error.response?.data?.message;
-        Toast.show({
-          type: "error",
-          text1: errorMSg,
-        });
-        // console.error("Register error: ", error);
-        return;
-      }
-      Toast.show({
-        type: "error",
-        text1: "Server Error",
-      });
-      //   console.error(error);
-    } finally {
-      set({ isLoading: false });
-    }
   },
 
   logout: async () => {

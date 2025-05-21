@@ -27,7 +27,7 @@ export default function RootLayout() {
 
   GoogleSignin.configure({
     webClientId: googleAuthClientID,
-    offlineAccess: false,
+    offlineAccess: true,
   });
 
   return (
