@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+import Spinner from "@/components/Spinner";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
@@ -24,7 +25,7 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { registerWithEmail } = authStore();
+  const { isLoading, register } = authStore();
 
   const handleRegister = () => {
     if (!name || !email || !password || !confirmPassword) {
@@ -37,7 +38,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    registerWithEmail(name, email, password);
+    register(name, email, password);
   };
 
   const signUpWithGoogle = async () => {
@@ -60,6 +61,7 @@ export default function RegisterScreen() {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       style={{ flex: 1 }}>
+      {isLoading && <Spinner />}
       <ThemedView style={styles.container}>
         <MotiView
           from={{ opacity: 0, translateY: -20 }}
@@ -142,7 +144,7 @@ export default function RegisterScreen() {
         </TouchableOpacity>
 
         {/* Link to Login */}
-        <TouchableOpacity onPress={() => router.replace("/(auth)/login")}>
+        <TouchableOpacity onPress={() => router.replace("/(auth)")}>
           <ThemedText style={styles.createAccountText}>
             Already have an account?{" "}
             <Text style={styles.createLink}>Log in</Text>

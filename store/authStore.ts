@@ -1,6 +1,7 @@
 import axios, { isAxiosError } from "axios";
 import { create } from "zustand";
 
+import { router } from "expo-router";
 import Toast from "react-native-toast-message";
 import { BASE_URL } from "./baseApi";
 
@@ -9,11 +10,7 @@ interface AuthState {
   token: string | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  registerWithEmail: (
-    name: string,
-    email: string,
-    password: string
-  ) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   loadToken: () => Promise<void>;
 }
@@ -57,7 +54,7 @@ export const authStore = create<AuthState>((set) => ({
     // }
   },
 
-  registerWithEmail: async (name, email, password) => {
+  register: async (name, email, password) => {
     set({ isLoading: true });
     try {
       const response = await axios.post(`${BASE_URL}/api/auth/register`, {
@@ -65,7 +62,13 @@ export const authStore = create<AuthState>((set) => ({
         email,
         password,
       });
-      console.log(response);
+
+      router.replace("/(auth)");
+
+      Toast.show({
+        type: "success",
+        text1: response.data?.message,
+      });
     } catch (error) {
       if (isAxiosError(error)) {
         const errorMSg = error.response?.data?.message;
