@@ -1,9 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import * as Google from "expo-auth-session/providers/google";
 import { Image } from "expo-image";
 import { router } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
 import { MotiText, MotiView } from "moti";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -17,11 +18,27 @@ import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
 
+WebBrowser.maybeCompleteAuthSession();
+
 export default function RegisterScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    iosClientId: "...",
+    androidClientId: "...",
+    webClientId: process.env.EXPO_PUBLIC_GOOGLE_AUTH_CLIENT_ID,
+    scopes: ["profile", "email"],
+  });
+
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { authentication } = response;
+      authentication?.accessToken && fetchUserInfo(authentication?.accessToken);
+    }
+  }, [response]);
 
   const handleRegister = () => {
     if (password !== confirmPassword) {
@@ -32,14 +49,24 @@ export default function RegisterScreen() {
     console.log("Register with:", name, email, password);
   };
 
-  const signInWithGoogle = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn();
-      console.log("User info:", userInfo);
-    } catch (error: any) {
-      console.error("Google Sign-In Error:", error);
-    }
+  // const signInWithGoogle = async () => {
+  //   try {
+  //     await GoogleSignin.hasPlayServices({
+  //       showPlayServicesUpdateDialog: true,
+  //     });
+  //     const userInfo = await GoogleSignin.signIn();
+  //     // console.log("User info:", userInfo);
+  //   } catch (error: any) {
+  //     console.log("Google Sign-In Error", error.code, error.message);
+  //   }
+  // };
+
+  const fetchUserInfo = async (accessToken: string) => {
+    const res = await fetch("https://www.googleapis.com/userinfo/v2/me", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+    const user = await res.json();
+    console.log("User info:", user);
   };
 
   return (
@@ -116,7 +143,7 @@ export default function RegisterScreen() {
         {/* Google Signup */}
         <TouchableOpacity
           style={styles.googleButton}
-          onPress={signInWithGoogle}>
+          onPress={() => promptAsync()}>
           <Ionicons
             name="logo-google"
             size={20}
