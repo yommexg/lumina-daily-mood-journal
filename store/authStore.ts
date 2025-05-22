@@ -1,8 +1,8 @@
 import axios, { isAxiosError } from "axios";
-import { create } from "zustand";
-
 import { router } from "expo-router";
 import Toast from "react-native-toast-message";
+import { create } from "zustand";
+
 import { BASE_URL } from "./baseApi";
 
 interface AuthState {
@@ -13,7 +13,8 @@ interface AuthState {
   registerWithGoogle: (
     name: string | null | undefined,
     email: string,
-    avatar: string | null
+    avatar: string | null,
+    googleId: string
   ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
@@ -65,7 +66,7 @@ export const authStore = create<AuthState>((set) => ({
     }
   },
 
-  registerWithGoogle: async (name, email, avatar) => {
+  registerWithGoogle: async (name, email, avatar, googleId) => {
     set({ isLoading: true });
     try {
       const response = await axios.post(
@@ -74,6 +75,7 @@ export const authStore = create<AuthState>((set) => ({
           name,
           email,
           avatar,
+          googleId,
         }
       );
 

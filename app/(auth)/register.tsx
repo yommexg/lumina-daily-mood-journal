@@ -11,6 +11,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
 import Spinner from "@/components/Spinner";
 import { ThemedText } from "@/components/ThemedText";
@@ -18,7 +19,6 @@ import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
 import { authStore } from "@/store/authStore";
-import Toast from "react-native-toast-message";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -56,8 +56,19 @@ export default function RegisterScreen() {
       const userInfo = await GoogleSignin.signIn();
       const user = userInfo.data?.user;
 
-      user?.email &&
-        (await registerWithGoogle(user?.givenName, user?.email, user?.photo));
+      if (user?.email) {
+        await registerWithGoogle(
+          user?.givenName,
+          user?.email,
+          user?.photo,
+          user.id
+        );
+      } else {
+        Toast.show({
+          type: "info",
+          text1: "No Email Found",
+        });
+      }
     } catch (error: any) {
       console.log("Google Sign-In Error", error.code, error.message);
     }

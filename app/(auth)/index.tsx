@@ -1,7 +1,3 @@
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedTextInput } from "@/components/ThemedTextInput";
-import { ThemedView } from "@/components/ThemedView";
-import { primaryColor } from "@/constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Image } from "expo-image";
@@ -15,6 +11,11 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+
+import { ThemedText } from "@/components/ThemedText";
+import { ThemedTextInput } from "@/components/ThemedTextInput";
+import { ThemedView } from "@/components/ThemedView";
+import { primaryColor } from "@/constants/Colors";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
