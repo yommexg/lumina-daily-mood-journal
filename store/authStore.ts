@@ -17,6 +17,7 @@ interface AuthState {
     googleId: string
   ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
+  loginWithGoogle: (tokenId: string) => Promise<void>;
   logout: () => void;
   loadToken: () => Promise<void>;
 }
@@ -55,12 +56,13 @@ export const authStore = create<AuthState>((set) => ({
         });
         // console.error("Register error: ", error);
         return;
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Server Error",
+        });
+        console.error("Register Error", error);
       }
-      Toast.show({
-        type: "error",
-        text1: "Server Error",
-      });
-      //   console.error(error);
     } finally {
       set({ isLoading: false });
     }
@@ -99,49 +101,94 @@ export const authStore = create<AuthState>((set) => ({
         });
         // console.error("Register With Google error: ", error);
         return;
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Server Error",
+        });
+        console.error("Register With Google Error", error);
       }
-      Toast.show({
-        type: "error",
-        text1: "Server Error",
-      });
-      //   console.error(error);
     } finally {
       set({ isLoading: false });
     }
   },
 
-  login: async (user, password) => {
-    // set({ isLoading: true });
-    // try {
-    //   if (!user || !password) {
-    //     Alert.alert(
-    //       "Missing Credentials",
-    //       "Please enter both user and password."
-    //     );
-    //     set({ isLoading: false });
-    //     return;
-    //   }
-    //   const response = await fetch(`${BASE_URL}/api/Auth/login`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ Username: user, Password: password }),
-    //   });
-    //   const data = await response.json();
-    //   if (response.ok) {
-    //     await AsyncStorage.setItem("token", data.token);
-    //     await AsyncStorage.setItem("user", user);
-    //     set({ user, token: data.token });
-    //     router.replace("/(tabs)/(songs)");
-    //   } else {
-    //     Alert.alert("Login Failed", "Oops !!, Something went wrong");
-    //     // throw new Error(data.message || "Login failed");
-    //   }
-    // } catch (error) {
-    //   Alert.alert("Login Failed", "Oops !!, Something went wrong");
-    //   //   console.error("Login error:", error);
-    // } finally {
-    //   set({ isLoading: false });
-    // }
+  login: async (email, password) => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.post(`${BASE_URL}/api/auth/login`, {
+        email,
+        password,
+      });
+
+      console.log(response.data);
+
+      // router.replace("/(auth)");
+
+      Toast.show({
+        type: "success",
+        text1: response.data?.message,
+      });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const errorMSg = error.response?.data?.message;
+
+        Toast.show({
+          type: "error",
+          text1: errorMSg,
+        });
+        // console.error("Login error: ", error);
+        return;
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Server Error",
+        });
+        console.error("Login Error", error);
+      }
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  loginWithGoogle: async (tokenId) => {
+    set({ isLoading: true });
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/api/auth/login-with-google`,
+        {
+          tokenId,
+        }
+      );
+
+      console.log(response.data);
+
+      // router.replace("/(auth)");
+
+      Toast.show({
+        type: "success",
+        text1: response.data?.message,
+      });
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const errorMSg = error.response?.data?.message;
+
+        Toast.show({
+          type: "error",
+          text1: errorMSg,
+        });
+        // console.error("Login With Google error: ", error);
+        return;
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Server Error",
+        });
+        console.error("Login With Google Error", error);
+      }
+    } finally {
+      set({ isLoading: false });
+    }
   },
 
   logout: async () => {

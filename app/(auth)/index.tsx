@@ -11,18 +11,31 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import Toast from "react-native-toast-message";
 
+import Spinner from "@/components/Spinner";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
+import { authStore } from "@/store/authStore";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { isLoading, login, loginWithGoogle } = authStore();
+
   const handleEmailLogin = () => {
-    console.log("Email Login with:", email, password);
+    if (!email || !password) {
+      Toast.show({
+        type: "info",
+        text1: "Incomplete Login Details",
+      });
+      return;
+    }
+
+    login(email, password);
   };
 
   const signInWithGoogle = async () => {
@@ -31,21 +44,23 @@ export default function LoginScreen() {
         showPlayServicesUpdateDialog: true,
       });
       const userInfo = await GoogleSignin.signIn();
-      const idToken = userInfo.data?.idToken;
-      const user = userInfo.data?.user;
 
-      console.log(idToken, user);
-
-      await GoogleSignin.signOut();
+      if (userInfo.data?.idToken) {
+        await loginWithGoogle(userInfo.data?.idToken);
+      }
     } catch (error: any) {
       console.log("Google Sign-In Error", error.code, error.message);
     }
+
+    await GoogleSignin.revokeAccess();
   };
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       style={{ flex: 1 }}>
+      {isLoading && <Spinner />}
+
       <ThemedView style={styles.container}>
         <MotiView
           from={{ opacity: 0, translateY: -20 }}

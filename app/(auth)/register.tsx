@@ -63,11 +63,6 @@ export default function RegisterScreen() {
           user?.photo,
           user.id
         );
-      } else {
-        Toast.show({
-          type: "info",
-          text1: "No Email Found",
-        });
       }
     } catch (error: any) {
       console.log("Google Sign-In Error", error.code, error.message);
