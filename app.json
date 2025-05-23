@@ -17,7 +17,8 @@
         "backgroundColor": "#FFFFFF"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.yommexg.dailymoodmobile"
+      "package": "com.yommexg.dailymoodmobile",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",

@@ -14,6 +14,15 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 - 🌗 **Light & Dark Mode Support**
 - 🔔 **Daily Reminders** – Stay consistent with gentle prompts
 - 📱 **Minimal, Reflective Design** – A calm space for your thoughts
+- 🔓 **Google Sign-In** – One-tap access using Google
+- 📬 **Email Verification** – Confirm identity before full access
+- 🚨 **Push Notifications** – Stay engaged with reminders and insights
+
+---
+
+## 📷 Screenshots
+
+Coming soon...
 
 ---
 
@@ -22,7 +31,7 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yommexg/lumina-daily-mood-journal.git
+git clone https://github.com/your-username/lumina-daily-mood-journal.git
 cd lumina-daily-mood-journal
 ```
 
@@ -48,6 +57,7 @@ npx expo start
 - Zustand (State Management)
 - React Navigation (Expo Router)
 - Expo Image / Font / SplashScreen
+- Expo Notifications (Upcoming)
 
 ---
 
@@ -56,26 +66,32 @@ npx expo start
 ```
 .
 ├── app/                 # Screens & Routes (expo-router)
-├── components/          # Reusable UI components
 ├── assets/              # Fonts, images, and icons
-├── store/               # Zustand store (mood, habits, etc.)
-├── utils/               # Utility functions (dates, charts)
+├── components/          # Reusable UI components
+├── store/               # Zustand store (mood, habits, users etc.)
+├── utils/               # Utility functions (types)
 ├── app.json             # App config (splash, icon, etc.)
 ```
 
 ---
 
+## 🔧 Utils Overview
+
+- `utils/types.ts` – # Types for Users, Moods etc
+
+---
+
 ## 🎈 Theming
 
-Lumina supports both **light** and **dark** modes using custom `ThemedText` and `ThemedView` components. You can find them in:
+Lumina supports both **light** and **dark** modes using custom `ThemedText`, `ThemedView`, and `ThemedTextInput` components:
 
 ```ts
-/components/TTdeeehmtx.tsx / components / ThemedView.tsx;
+/components / Themedtx.tsx / components /  ThemedTextInput.tsx  / components /ThemedView.tsx;
 ```
 
 ---
 
-## 📦 Dependencies
+## 📦 Key Dependencies
 
 ```json
 "expo": "~50.x",
@@ -83,15 +99,16 @@ Lumina supports both **light** and **dark** modes using custom `ThemedText` and 
 "expo-splash-screen": "~0.20.x",
 "expo-font": "~11.x",
 "expo-image": "^1.x",
+"expo-notifications": "~0.20.x",
 "zustand": "^4.x",
-"react-native-reanimated": "~3.x"
+"react-native-reanimated": "~3.x",
 ```
 
 ---
 
 ## 🔒 License
 
-MIT License © 2025
+MIT License © 2025 [Your Name or Studio]
 
 ---
 

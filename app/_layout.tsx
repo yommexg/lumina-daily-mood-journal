@@ -12,6 +12,7 @@ import Toast from "react-native-toast-message";
 
 import { toastConfig } from "@/config/toastConfig";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { NotificationProvider } from "@/providers/NotificationProvider";
 
 const googleAuthClientID = process.env.EXPO_PUBLIC_GOOGLE_AUTH_CLIENT_ID;
 
@@ -31,16 +32,18 @@ export default function RootLayout() {
   });
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen
-          name="(auth)"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-      <Toast config={toastConfig} />
-    </ThemeProvider>
+    <NotificationProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen
+            name="(auth)"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+        <StatusBar style="auto" />
+        <Toast config={toastConfig} />
+      </ThemeProvider>
+    </NotificationProvider>
   );
 }
