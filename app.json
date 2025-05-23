@@ -8,6 +8,9 @@
     "scheme": "lumina",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "notification": {
+      "icon": "./assets/images/icon.png"
+    },
     "ios": {
       "supportsTablet": true
     },
