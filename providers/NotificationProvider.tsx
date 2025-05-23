@@ -4,6 +4,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 
 type NotificationContextType = {
   notification: Notifications.Notification | undefined;
+  expoPushToken: string | null | undefined;
 };
 
 export const NotificationContext = createContext<
@@ -11,13 +12,16 @@ export const NotificationContext = createContext<
 >(undefined);
 
 export const NotificationProvider = ({ children }: { children: ReactNode }) => {
+  const [expoPushToken, setExpoPushToken] = useState<string | null | undefined>(
+    null
+  );
   const [notification, setNotification] = useState<
     Notifications.Notification | undefined
   >(undefined);
 
   useEffect(() => {
     registerForPushNotificationsAsync()
-      .then((token) => console.log(token))
+      .then((token) => token && setExpoPushToken(token))
       .catch((error: any) => console.log(error));
 
     const notificationListener = Notifications.addNotificationReceivedListener(
@@ -38,7 +42,7 @@ export const NotificationProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <NotificationContext.Provider value={{ notification }}>
+    <NotificationContext.Provider value={{ notification, expoPushToken }}>
       {children}
     </NotificationContext.Provider>
   );

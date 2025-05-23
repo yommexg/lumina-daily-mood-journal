@@ -9,12 +9,18 @@ interface AuthState {
   user: string;
   token: string | null;
   isLoading: boolean;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (
+    name: string,
+    email: string,
+    password: string,
+    expoPushToken: string | null | undefined
+  ) => Promise<void>;
   registerWithGoogle: (
     name: string | null | undefined,
     email: string,
     avatar: string | null,
-    googleId: string
+    googleId: string,
+    expoPushToken: string | null | undefined
   ) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   loginWithGoogle: (tokenId: string) => Promise<void>;
@@ -22,18 +28,19 @@ interface AuthState {
   loadToken: () => Promise<void>;
 }
 
-export const authStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set) => ({
   user: "",
   token: null,
   isLoading: false,
 
-  register: async (name, email, password) => {
+  register: async (name, email, password, expoPushToken) => {
     set({ isLoading: true });
     try {
       const response = await axios.post(`${BASE_URL}/api/auth/register`, {
         name,
         email,
         password,
+        expoPushToken: expoPushToken ?? undefined,
       });
 
       router.replace("/(auth)");
@@ -68,7 +75,7 @@ export const authStore = create<AuthState>((set) => ({
     }
   },
 
-  registerWithGoogle: async (name, email, avatar, googleId) => {
+  registerWithGoogle: async (name, email, avatar, googleId, expoPushToken) => {
     set({ isLoading: true });
     try {
       const response = await axios.post(
@@ -78,6 +85,7 @@ export const authStore = create<AuthState>((set) => ({
           email,
           avatar,
           googleId,
+          expoPushToken: expoPushToken ?? undefined,
         }
       );
 

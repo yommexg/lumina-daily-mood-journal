@@ -5,7 +5,6 @@ import { router } from "expo-router";
 import { MotiText, MotiView } from "moti";
 import { useState } from "react";
 import {
-  Button,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -19,34 +18,14 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
-import { authStore } from "@/store/authStore";
+import { useAuthStore } from "@/store/useAuthStore";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { isLoading, login, loginWithGoogle } = authStore();
-
-  async function sendPushNotification(expoPushToken: string) {
-    const message = {
-      to: expoPushToken,
-      sound: "default",
-      title: "Original Title",
-      body: "And here is the body!",
-      data: { someData: "goes here" },
-    };
-
-    await fetch("https://exp.host/--/api/v2/push/send?useFcmV1=true", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Accept-encoding": "gzip, deflate",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(message),
-    });
-  }
+  const { isLoading, login, loginWithGoogle } = useAuthStore();
 
   const handleEmailLogin = () => {
     if (!email || !password) {
@@ -83,12 +62,6 @@ export default function LoginScreen() {
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{ flex: 1 }}>
         {isLoading && <Spinner />}
-        <Button
-          title="Press to Send Notification"
-          onPress={() =>
-            sendPushNotification("ExponentPushToken[-bzVQyLFgu4PrFsqN3jnWc]")
-          }
-        />
 
         <ThemedView style={styles.container}>
           <MotiView

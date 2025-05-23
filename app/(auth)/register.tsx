@@ -18,7 +18,9 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
-import { authStore } from "@/store/authStore";
+import { usePushNotification } from "@/hooks/usePushNotification";
+import { useAuthStore } from "@/store/useAuthStore";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -26,7 +28,8 @@ export default function RegisterScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { isLoading, register, registerWithGoogle } = authStore();
+  const { expoPushToken } = usePushNotification();
+  const { isLoading, register, registerWithGoogle } = useAuthStore();
 
   const handleRegister = () => {
     if (!name || !email || !password || !confirmPassword) {
@@ -45,7 +48,7 @@ export default function RegisterScreen() {
       return;
     }
 
-    register(name, email, password);
+    register(name, email, password, expoPushToken);
   };
 
   const signUpWithGoogle = async () => {
@@ -61,7 +64,8 @@ export default function RegisterScreen() {
           user?.givenName,
           user?.email,
           user?.photo,
-          user.id
+          user.id,
+          expoPushToken
         );
       }
     } catch (error: any) {
@@ -71,100 +75,102 @@ export default function RegisterScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-      style={{ flex: 1 }}>
-      {isLoading && <Spinner />}
-      <ThemedView style={styles.container}>
-        <MotiView
-          from={{ opacity: 0, translateY: -20 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: "timing", duration: 1000 }}
-          style={styles.header}>
-          <Image
-            source={require("@/assets/images/logo.png")}
-            style={styles.logo}
-            contentFit="contain"
-          />
-          <MotiText>
-            <ThemedText style={styles.title}>
-              Create your Lumina account
-            </ThemedText>
-          </MotiText>
-          <MotiText style={styles.subtitle}>
-            Let’s get started on your mood journey.
-          </MotiText>
-        </MotiView>
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={{ flex: 1 }}>
+        {isLoading && <Spinner />}
+        <ThemedView style={styles.container}>
+          <MotiView
+            from={{ opacity: 0, translateY: -20 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ type: "timing", duration: 1000 }}
+            style={styles.header}>
+            <Image
+              source={require("@/assets/images/logo.png")}
+              style={styles.logo}
+              contentFit="contain"
+            />
+            <MotiText>
+              <ThemedText style={styles.title}>
+                Create your Lumina account
+              </ThemedText>
+            </MotiText>
+            <MotiText style={styles.subtitle}>
+              Let’s get started on your mood journey.
+            </MotiText>
+          </MotiView>
 
-        <MotiView
-          from={{ opacity: 0, translateY: 20 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ delay: 600 }}
-          style={styles.form}>
-          <ThemedTextInput
-            placeholder="Username"
-            placeholderTextColor="grey"
-            value={name}
-            onChangeText={setName}
-            style={styles.input}
-          />
-          <ThemedTextInput
-            placeholder="Email"
-            placeholderTextColor="grey"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            style={styles.input}
-          />
-          <ThemedTextInput
-            placeholder="Password"
-            placeholderTextColor="grey"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            style={styles.input}
-          />
-          <ThemedTextInput
-            placeholder="Confirm Password"
-            placeholderTextColor="grey"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry
-            style={styles.input}
-          />
+          <MotiView
+            from={{ opacity: 0, translateY: 20 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ delay: 600 }}
+            style={styles.form}>
+            <ThemedTextInput
+              placeholder="Username"
+              placeholderTextColor="grey"
+              value={name}
+              onChangeText={setName}
+              style={styles.input}
+            />
+            <ThemedTextInput
+              placeholder="Email"
+              placeholderTextColor="grey"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={styles.input}
+            />
+            <ThemedTextInput
+              placeholder="Password"
+              placeholderTextColor="grey"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              style={styles.input}
+            />
+            <ThemedTextInput
+              placeholder="Confirm Password"
+              placeholderTextColor="grey"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry
+              style={styles.input}
+            />
+            <TouchableOpacity
+              onPress={handleRegister}
+              style={styles.registerButton}>
+              <Text style={styles.registerButtonText}>Register</Text>
+            </TouchableOpacity>
+          </MotiView>
+
+          <ThemedText style={styles.orText}>or</ThemedText>
+
+          {/* Google Signup */}
           <TouchableOpacity
-            onPress={handleRegister}
-            style={styles.registerButton}>
-            <Text style={styles.registerButtonText}>Register</Text>
+            style={styles.googleButton}
+            onPress={signUpWithGoogle}>
+            <Ionicons
+              name="logo-google"
+              size={20}
+              color={primaryColor}
+            />
+            <ThemedText style={styles.googleButtonText}>
+              Sign up with Google
+            </ThemedText>
           </TouchableOpacity>
-        </MotiView>
 
-        <ThemedText style={styles.orText}>or</ThemedText>
-
-        {/* Google Signup */}
-        <TouchableOpacity
-          style={styles.googleButton}
-          onPress={signUpWithGoogle}>
-          <Ionicons
-            name="logo-google"
-            size={20}
-            color={primaryColor}
-          />
-          <ThemedText style={styles.googleButtonText}>
-            Sign up with Google
-          </ThemedText>
-        </TouchableOpacity>
-
-        {/* Link to Login */}
-        <TouchableOpacity onPress={() => router.replace("/(auth)")}>
-          <ThemedText style={styles.createAccountText}>
-            Already have an account?{" "}
-            <Text style={styles.createLink}>Log in</Text>
-          </ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-    </KeyboardAvoidingView>
+          {/* Link to Login */}
+          <TouchableOpacity onPress={() => router.replace("/(auth)")}>
+            <ThemedText style={styles.createAccountText}>
+              Already have an account?{" "}
+              <Text style={styles.createLink}>Log in</Text>
+            </ThemedText>
+          </TouchableOpacity>
+        </ThemedView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
