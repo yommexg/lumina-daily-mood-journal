@@ -5,6 +5,7 @@ import { router } from "expo-router";
 import { MotiText, MotiView } from "moti";
 import { useState } from "react";
 import {
+  Button,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -19,12 +20,33 @@ import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
 import { authStore } from "@/store/authStore";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { isLoading, login, loginWithGoogle } = authStore();
+
+  async function sendPushNotification(expoPushToken: string) {
+    const message = {
+      to: expoPushToken,
+      sound: "default",
+      title: "Original Title",
+      body: "And here is the body!",
+      data: { someData: "goes here" },
+    };
+
+    await fetch("https://exp.host/--/api/v2/push/send?useFcmV1=true", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Accept-encoding": "gzip, deflate",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(message),
+    });
+  }
 
   const handleEmailLogin = () => {
     if (!email || !password) {
@@ -56,85 +78,93 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
-      style={{ flex: 1 }}>
-      {isLoading && <Spinner />}
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={{ flex: 1 }}>
+        {isLoading && <Spinner />}
+        <Button
+          title="Press to Send Notification"
+          onPress={() =>
+            sendPushNotification("ExponentPushToken[-bzVQyLFgu4PrFsqN3jnWc]")
+          }
+        />
 
-      <ThemedView style={styles.container}>
-        <MotiView
-          from={{ opacity: 0, translateY: -20 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: "timing", duration: 1000 }}
-          style={styles.header}>
-          <Image
-            source={require("@/assets/images/logo.png")}
-            style={styles.logo}
-            contentFit="contain"
-          />
-          <MotiText>
-            <ThemedText style={styles.title}>Welcome to Lumina</ThemedText>
-          </MotiText>
-          <MotiText style={styles.subtitle}>
-            Reflect, track, and understand your mood.
-          </MotiText>
-        </MotiView>
+        <ThemedView style={styles.container}>
+          <MotiView
+            from={{ opacity: 0, translateY: -20 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ type: "timing", duration: 1000 }}
+            style={styles.header}>
+            <Image
+              source={require("@/assets/images/logo.png")}
+              style={styles.logo}
+              contentFit="contain"
+            />
+            <MotiText>
+              <ThemedText style={styles.title}>Welcome to Lumina</ThemedText>
+            </MotiText>
+            <MotiText style={styles.subtitle}>
+              Reflect, track, and understand your mood.
+            </MotiText>
+          </MotiView>
 
-        {/* Email Login */}
+          {/* Email Login */}
 
-        <MotiView
-          from={{ opacity: 0, translateY: 20 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ delay: 600 }}
-          style={styles.form}>
-          <ThemedTextInput
-            placeholder="Email"
-            placeholderTextColor="grey"
-            value={email}
-            onChangeText={setEmail}
-            keyboardType="email-address"
-            autoCapitalize="none"
-            style={styles.input}
-          />
-          <ThemedTextInput
-            placeholder="Password"
-            placeholderTextColor="grey"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            style={styles.input}
-          />
+          <MotiView
+            from={{ opacity: 0, translateY: 20 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ delay: 600 }}
+            style={styles.form}>
+            <ThemedTextInput
+              placeholder="Email"
+              placeholderTextColor="grey"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              style={styles.input}
+            />
+            <ThemedTextInput
+              placeholder="Password"
+              placeholderTextColor="grey"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              style={styles.input}
+            />
+            <TouchableOpacity
+              onPress={handleEmailLogin}
+              style={styles.loginButton}>
+              <Text style={styles.loginButtonText}>Login</Text>
+            </TouchableOpacity>
+          </MotiView>
+
+          <ThemedText style={styles.orText}>or</ThemedText>
+
+          {/* Google Login */}
           <TouchableOpacity
-            onPress={handleEmailLogin}
-            style={styles.loginButton}>
-            <Text style={styles.loginButtonText}>Login</Text>
+            style={styles.googleButton}
+            onPress={signInWithGoogle}>
+            <Ionicons
+              name="logo-google"
+              size={20}
+              color={primaryColor}
+            />
+            <ThemedText style={styles.googleButtonText}>
+              Sign in with Google
+            </ThemedText>
           </TouchableOpacity>
-        </MotiView>
 
-        <ThemedText style={styles.orText}>or</ThemedText>
-
-        {/* Google Login */}
-        <TouchableOpacity
-          style={styles.googleButton}
-          onPress={signInWithGoogle}>
-          <Ionicons
-            name="logo-google"
-            size={20}
-            color={primaryColor}
-          />
-          <ThemedText style={styles.googleButtonText}>
-            Sign in with Google
-          </ThemedText>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
-          <ThemedText style={styles.createAccountText}>
-            Don’t have an account?{" "}
-            <Text style={styles.createLink}>Create one</Text>
-          </ThemedText>
-        </TouchableOpacity>
-      </ThemedView>
-    </KeyboardAvoidingView>
+          <TouchableOpacity onPress={() => router.push("/(auth)/register")}>
+            <ThemedText style={styles.createAccountText}>
+              Don’t have an account?{" "}
+              <Text style={styles.createLink}>Create one</Text>
+            </ThemedText>
+          </TouchableOpacity>
+        </ThemedView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 }
 
