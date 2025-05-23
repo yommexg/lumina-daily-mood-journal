@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "991553287024",
+    "project_id": "lumina-b8715",
+    "storage_bucket": "lumina-b8715.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991553287024:android:751225eb5ba0f2ff1795b5",
+        "android_client_info": {
+          "package_name": "com.yommexg.dailymoodmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwWB-iypQEIg0gGMjEmme0bjvm-jXfHUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
