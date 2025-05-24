@@ -139,7 +139,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
       console.log(response.data);
 
-      // router.replace("/(auth)");
+      router.replace("/(user)");
 
       Toast.show({
         type: "success",
@@ -178,9 +178,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
       );
 
-      console.log(response.data);
-
-      // router.replace("/(auth)");
+      router.replace("/(user)");
 
       Toast.show({
         type: "success",

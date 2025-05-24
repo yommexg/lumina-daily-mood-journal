@@ -39,6 +39,10 @@ export default function RootLayout() {
             name="(auth)"
             options={{ headerShown: false }}
           />
+          <Stack.Screen
+            name="(user)"
+            options={{ headerShown: false }}
+          />
           <Stack.Screen name="+not-found" />
         </Stack>
         <StatusBar style="auto" />
