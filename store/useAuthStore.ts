@@ -22,8 +22,15 @@ interface AuthState {
     googleId: string,
     expoPushToken: string | null | undefined
   ) => Promise<void>;
-  login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: (tokenId: string) => Promise<void>;
+  login: (
+    email: string,
+    password: string,
+    expoPushToken: string | null | undefined
+  ) => Promise<void>;
+  loginWithGoogle: (
+    tokenId: string,
+    expoPushToken: string | null | undefined
+  ) => Promise<void>;
   logout: () => void;
   loadToken: () => Promise<void>;
 }
@@ -59,7 +66,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         Toast.show({
           type: "error",
-          text1: errorMSg,
+          text1: errorMSg ?? "Network Error",
         });
         // console.error("Register error: ", error);
         return;
@@ -105,7 +112,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         Toast.show({
           type: "error",
-          text1: errorMSg,
+          text1: errorMSg ?? "Network Error",
         });
         // console.error("Register With Google error: ", error);
         return;
@@ -121,12 +128,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
-  login: async (email, password) => {
+  login: async (email, password, expoPushToken) => {
     set({ isLoading: true });
     try {
       const response = await axios.post(`${BASE_URL}/api/auth/login`, {
         email,
         password,
+        expoPushToken: expoPushToken ?? undefined,
       });
 
       console.log(response.data);
@@ -143,7 +151,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         Toast.show({
           type: "error",
-          text1: errorMSg,
+          text1: errorMSg ?? "Network Error",
         });
         // console.error("Login error: ", error);
         return;
@@ -159,13 +167,14 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
-  loginWithGoogle: async (tokenId) => {
+  loginWithGoogle: async (tokenId, expoPushToken) => {
     set({ isLoading: true });
     try {
       const response = await axios.post(
         `${BASE_URL}/api/auth/login-with-google`,
         {
           tokenId,
+          expoPushToken: expoPushToken ?? undefined,
         }
       );
 
@@ -183,7 +192,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         Toast.show({
           type: "error",
-          text1: errorMSg,
+          text1: errorMSg ?? "Network Error",
         });
         // console.error("Login With Google error: ", error);
         return;

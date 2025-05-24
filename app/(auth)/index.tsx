@@ -11,6 +11,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 
 import Spinner from "@/components/Spinner";
@@ -18,13 +19,14 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedTextInput } from "@/components/ThemedTextInput";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
+import { usePushNotification } from "@/hooks/usePushNotification";
 import { useAuthStore } from "@/store/useAuthStore";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { expoPushToken } = usePushNotification();
   const { isLoading, login, loginWithGoogle } = useAuthStore();
 
   const handleEmailLogin = () => {
@@ -36,7 +38,7 @@ export default function LoginScreen() {
       return;
     }
 
-    login(email, password);
+    login(email, password, expoPushToken);
   };
 
   const signInWithGoogle = async () => {
@@ -47,7 +49,7 @@ export default function LoginScreen() {
       const userInfo = await GoogleSignin.signIn();
 
       if (userInfo.data?.idToken) {
-        await loginWithGoogle(userInfo.data?.idToken);
+        await loginWithGoogle(userInfo.data?.idToken, expoPushToken);
       }
     } catch (error: any) {
       console.log("Google Sign-In Error", error.code, error.message);
