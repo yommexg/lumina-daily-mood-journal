@@ -68,9 +68,16 @@ npx expo start
 ├── app/                 # Screens & Routes (expo-router)
 ├── assets/              # Fonts, images, and icons
 ├── components/          # Reusable UI components
+├── config/              # Configurations for External Providers (Notifications, Toast Messages etc.)
+├── constants/           # Constant Values (Colors, BlurHash for expo image etc.)
+├── hooks/               # Renders hooks for app usage (useColorScheme, usePushNotifications etc.)
+├── providers/           # Generate Context for the app (NotificationProvider etc.)
+├── screenshots/         # Stores Snapshots of the application
 ├── store/               # Zustand store (mood, habits, users etc.)
 ├── utils/               # Utility functions (types)
 ├── app.json             # App config (splash, icon, etc.)
+├── eas.json             # EAS Build for production, development and preview
+└── tsconfig.json        # Typescript Configurations
 ```
 
 ---
@@ -108,7 +115,7 @@ Lumina supports both **light** and **dark** modes using custom `ThemedText`, `Th
 
 ## 🔒 License
 
-MIT License © 2025 [Your Name or Studio]
+MIT License © 2025 Boluwatife Yomi-Olugbodi
 
 ---
 
