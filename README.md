@@ -22,7 +22,16 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 
 ## 📷 Screenshots
 
-Coming soon...
+![Building Process](./screenshots/build.png)
+![Splash](./screenshots/splash.png)
+
+### 🌞 Light Mode
+
+![Light Login](./screenshots/light-view/light-login.png)
+
+### 🌙 Dark Mode
+
+![Dark Login](./screenshots/dark-view/dark-login.png)
 
 ---
 
@@ -47,6 +56,13 @@ yarn
 
 ```bash
 npx expo start
+```
+
+## 🧪 Sample `.env`
+
+```env
+EXPO_PUBLIC_GOOGLE_AUTH_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+EXPO_PUBLIC_API_URL=https://your-production-backendend.com || http://192.168.x.x:${BACKEND_PORT}(for development)
 ```
 
 ---
