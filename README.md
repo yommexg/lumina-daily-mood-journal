@@ -22,8 +22,8 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 
 ## 📷 Screenshots
 
-<img src="./screenshots/build.png" alt="Building Process" width="500"/>
-<img src="./screenshots/splash.png" alt="Splash" width="500"/>
+<img src="./screenshots/build.png" alt="Building Process" width="200"/>
+<img src="./screenshots/splash.png" alt="Splash" width="200"/>
 
 ---
 
@@ -31,13 +31,38 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 
 ### 🌞 Light Mode
 
-<img src="./screenshots/light-view/light-login.png" alt="Light Login" width="200"/>
+<img src="./screenshots/light-view/light-login.png" alt="Light mode - Login screen" width="200"/>
+<img src="./screenshots/light-view/light-login-with-google.png" alt="Light mode - Login screen with Google button" width="200"/>
+<img src="./screenshots/light-view/light-register.png" alt="Light mode - Register screen" width="200"/>
+<img src="./screenshots/light-view/light-loading-state.png" alt="Light mode - Loading state indicator" width="200"/>
+<img src="./screenshots/light-view/light-toast-success.png" alt="Light mode - Toast notification for success" width="200"/>
+<img src="./screenshots/light-view/light-verify-email-and-push-notification.png" alt="Light mode - Email verification and push notification prompt" width="200"/>
+<img src="./screenshots/light-view/light-verify-email.png" alt="Light mode - Verify email screen" width="200"/>
+<img src="./screenshots/light-view/light-verify-email-website.png" alt="Light mode - Verify email via website" width="200"/>
+<img src="./screenshots/light-view/light-verified-email.png" alt="Light mode - Email successfully verified screen" width="200"/>
+<img src="./screenshots/light-view/light-failed-email-verify.png" alt="Light mode - Failed email verification screen" width="200"/>
+<img src="./screenshots/light-view/light-push-notifiactions.png" alt="Light mode - Push notifications screen" width="200"/>
+<img src="./screenshots/light-view/light-home-page-with-toast-sucess.png" alt="Light mode - Home page with success toast" width="200"/>
 
 --
 
 ### 🌙 Dark Mode
 
-<img src="./screenshots/dark-view/dark-login.png" alt="Dark Login" width="200"/>
+<img src="./screenshots/dark-view/dark-login.png" alt="Dark mode - Login screen" width="200"/>
+<img src="./screenshots/dark-view/dark-login-with-google.png" alt="Dark mode - Login screen with Google button" width="200"/>
+<img src="./screenshots/dark-view/dark-loading-state.png" alt="Dark mode - Loading state indicator" width="200"/>
+<img src="./screenshots/dark-view/dark-failed-login.png" alt="Dark mode - Failed Login" width="200"/>
+<img src="./screenshots/dark-view/dark-register.png" alt="Dark mode - Register screen" width="200"/>
+<img src="./screenshots/dark-view/dark-login-with-toast-success.png" alt="Dark mode - Toast notification for success" width="200"/>
+<img src="./screenshots/dark-view/dark-login-with-toast-info.png" alt="Dark mode - Toast notification for info" width="200"/>
+<img src="./screenshots/dark-view/dark-login-with-toast-error.png" alt="Dark mode - Toast notification for error" width="200"/>
+<img src="./screenshots/dark-view/dark-verify-email-and-push-notification.png" alt="Dark mode - Email verification and push notification prompt" width="200"/>
+<img src="./screenshots/dark-view/dark-verify-email.png" alt="Dark mode - Verify email screen" width="200"/>
+<img src="./screenshots/dark-view/dark-verify-email-website.png" alt="Dark mode - Verify email via website" width="200"/>
+<img src="./screenshots/dark-view/dark-verified-email.png" alt="Dark mode - Email successfully verified screen" width="200"/>
+<img src="./screenshots/dark-view/dark-push-notification-verification-success-alert.png" alt="Dark mode - Push notifications for verification screen" width="200"/>
+<img src="./screenshots/dark-view/dark-push-notification-success-alert.png" alt="Dark mode - Push notifications for login screen" width="200"/>
+<img src="./screenshots/dark-view/dark-home-page-with-toast-sucess.png" alt="Dark mode - Home page with success toast" width="200"/>
 
 --
 
