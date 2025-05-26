@@ -22,18 +22,24 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 
 ## 📷 Screenshots
 
-![Building Process](./screenshots/build.png)
-![Splash](./screenshots/splash.png)
+<img src="./screenshots/build.png" alt="Building Process" width="500"/>
+<img src="./screenshots/splash.png" alt="Splash" width="500"/>
+
+---
+
+--
 
 ### 🌞 Light Mode
 
-![Light Login](./screenshots/light-view/light-login.png)
+<img src="./screenshots/light-view/light-login.png" alt="Light Login" width="400"/>
+
+--
 
 ### 🌙 Dark Mode
 
-![Dark Login](./screenshots/dark-view/dark-login.png)
+<img src="./screenshots/dark-view/dark-login.png" alt="Dark Login" width="400"/>
 
----
+--
 
 ## 🚀 Getting Started
 
