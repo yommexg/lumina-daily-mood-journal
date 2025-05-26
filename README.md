@@ -31,13 +31,13 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 
 ### 🌞 Light Mode
 
-<img src="./screenshots/light-view/light-login.png" alt="Light Login" width="400"/>
+<img src="./screenshots/light-view/light-login.png" alt="Light Login" width="200"/>
 
 --
 
 ### 🌙 Dark Mode
 
-<img src="./screenshots/dark-view/dark-login.png" alt="Dark Login" width="400"/>
+<img src="./screenshots/dark-view/dark-login.png" alt="Dark Login" width="200"/>
 
 --
 
