@@ -22,14 +22,20 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 
 ## 📷 Screenshots
 
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
+
 <img src="./screenshots/build.png" alt="Building Process" width="200"/>
 <img src="./screenshots/splash.png" alt="Splash" width="200"/>
+
+</div>
 
 ---
 
 --
 
 ### 🌞 Light Mode
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
 
 <img src="./screenshots/light-view/light-login.png" alt="Light mode - Login screen" width="200"/>
 <img src="./screenshots/light-view/light-login-with-google.png" alt="Light mode - Login screen with Google button" width="200"/>
@@ -44,9 +50,13 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 <img src="./screenshots/light-view/light-push-notifiactions.png" alt="Light mode - Push notifications screen" width="200"/>
 <img src="./screenshots/light-view/light-home-page-with-toast-sucess.png" alt="Light mode - Home page with success toast" width="200"/>
 
+</div>
+
 --
 
 ### 🌙 Dark Mode
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px;">
 
 <img src="./screenshots/dark-view/dark-login.png" alt="Dark mode - Login screen" width="200"/>
 <img src="./screenshots/dark-view/dark-login-with-google.png" alt="Dark mode - Login screen with Google button" width="200"/>
@@ -63,6 +73,8 @@ Built with **Expo**, **React Native**, and **Zustand**, Lumina combines a soothi
 <img src="./screenshots/dark-view/dark-push-notification-verification-success-alert.png" alt="Dark mode - Push notifications for verification screen" width="200"/>
 <img src="./screenshots/dark-view/dark-push-notification-success-alert.png" alt="Dark mode - Push notifications for login screen" width="200"/>
 <img src="./screenshots/dark-view/dark-home-page-with-toast-sucess.png" alt="Dark mode - Home page with success toast" width="200"/>
+
+</div>
 
 --
 
