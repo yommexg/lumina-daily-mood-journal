@@ -52,7 +52,7 @@ export default function LoginScreen() {
         await loginWithGoogle(userInfo.data?.idToken, expoPushToken);
       }
     } catch (error: any) {
-      console.log("Google Sign-In Error", error.code, error.message);
+      console.error("Google Sign-In Error", error);
     }
 
     await GoogleSignin.revokeAccess();
