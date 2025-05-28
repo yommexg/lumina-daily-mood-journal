@@ -6,9 +6,6 @@ import { router } from "expo-router";
 import React from "react";
 import Toast from "react-native-toast-message";
 
-jest.mock("@/store/useAuthStore");
-jest.mock("expo-router");
-
 const mockedUseAuthStore = jest.mocked(useAuthStore);
 
 describe("LoginScreen", () => {
@@ -66,12 +63,6 @@ describe("LoginScreen", () => {
     });
   });
 
-  it("navigates to register screen", () => {
-    const { getByText } = render(<LoginScreen />);
-    fireEvent.press(getByText(/Create one/i));
-    expect(router.push).toHaveBeenCalledWith("/(auth)/register");
-  });
-
   it("logs error if Google Sign-In fails", async () => {
     const mockError = new Error("Google sign-in failed");
     (GoogleSignin.signIn as jest.Mock).mockRejectedValueOnce(mockError);
@@ -90,5 +81,11 @@ describe("LoginScreen", () => {
     });
 
     consoleErrorSpy.mockRestore(); // Clean up after the test
+  });
+
+  it("navigates to register screen", () => {
+    const { getByText } = render(<LoginScreen />);
+    fireEvent.press(getByText(/Create one/i));
+    expect(router.push).toHaveBeenCalledWith("/(auth)/register");
   });
 });

@@ -3,6 +3,7 @@ import "react-native-gesture-handler/jestSetup";
 jest.mock("expo-router", () => ({
   router: {
     push: jest.fn(),
+    replace: jest.fn(),
   },
 }));
 
