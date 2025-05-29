@@ -23,6 +23,14 @@ jest.mock("@/store/useAuthStore", () => {
   };
 });
 
+beforeEach(() => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+});
+
+afterEach(() => {
+  (console.error as jest.Mock).mockRestore();
+});
+
 describe("Register Store", () => {
   beforeEach(() => jest.clearAllMocks());
 

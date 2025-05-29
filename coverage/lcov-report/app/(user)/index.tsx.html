@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
@@ -104,7 +104,19 @@
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
 <a name='L41'></a><a href='#L41'>41</a>
-<a name='L42'></a><a href='#L42'>42</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -132,9 +144,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,44 +170,56 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Image } from "expo-image";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 &nbsp;
+import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 &nbsp;
 export default function <span class="fstat-no" title="function not covered" >HomeScreen(</span>) {
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;SafeAreaView style={{ flex: 1 }}&gt;
-      &lt;KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{ flex: 1 }}&gt;
-        &lt;ThemedView style={styles.container}&gt;
+      &lt;ParallaxScrollView
+        headerImage={
           &lt;Image
             source={require("@/assets/images/logo.png")}
-            style={styles.logo}
+            style={styles.headerImage}
             contentFit="contain"
           /&gt;
-          &lt;ThemedText style={{ fontSize: 20, fontWeight: "condensedBold" }}&gt;
-            Welcome to the Lumina Home Page!!
-          &lt;/ThemedText&gt;
-        &lt;/ThemedView&gt;
-      &lt;/KeyboardAvoidingView&gt;
+        }
+        headerBackgroundColor={{
+          light: "#fff",
+          dark: "#000",
+        }}&gt;
+        {/* &lt;ExternalLink
+          href="https://expo.dev"
+          style={{ color: "red", marginVertical: 20, fontSize: 16 }}&gt;
+          Visit Expo.dev
+        &lt;/ExternalLink&gt; */}
+        &lt;ThemedText style={styles.title}&gt;
+          Welcome to the Lumina Home Page!!
+        &lt;/ThemedText&gt;
+        &lt;ThemedText&gt;
+          Scroll down to see the parallax effect in action.
+        &lt;/ThemedText&gt;
+        {/* Add some extra content to enable scrolling */}
+        {Array.from({ length: 40 }, <span class="fstat-no" title="function not covered" >(_</span>, i) =&gt; (
+<span class="cstat-no" title="statement not covered" >          &lt;ThemedText key={i}&gt;Item {i + 1}&lt;/ThemedText&gt;</span>
+        ))}
+      &lt;/ParallaxScrollView&gt;
     &lt;/SafeAreaView&gt;
   );
 }
 &nbsp;
 const styles = <span class="cstat-no" title="statement not covered" >StyleSheet.create({</span>
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 24,
+  headerImage: {
+    width: "100%",
+    height: "100%",
   },
-&nbsp;
-  logo: {
-    width: 200,
-    height: 200,
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 16,
   },
 });
 &nbsp;</pre></td></tr></table></pre>
@@ -193,7 +229,7 @@ const styles = <span class="cstat-no" title="statement not covered" >StyleSheet.
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-29T10:57:28.490Z
+                at 2025-05-29T22:48:48.930Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

@@ -2,6 +2,7 @@ import { Image } from "expo-image";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { ExternalLink } from "@/components/ExternalLink";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 
@@ -20,11 +21,11 @@ export default function HomeScreen() {
           light: "#fff",
           dark: "#000",
         }}>
-        {/* <ExternalLink
+        <ExternalLink
           href="https://expo.dev"
           style={{ color: "red", marginVertical: 20, fontSize: 16 }}>
           Visit Expo.dev
-        </ExternalLink> */}
+        </ExternalLink>
         <ThemedText style={styles.title}>
           Welcome to the Lumina Home Page!!
         </ThemedText>
