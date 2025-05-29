@@ -31,8 +31,8 @@ interface AuthState {
     tokenId: string,
     expoPushToken: string | null | undefined
   ) => Promise<void>;
-  logout: () => void;
-  loadToken: () => Promise<void>;
+  // logout: () => void;
+  // loadToken: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -206,19 +206,19 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
-  logout: async () => {
-    // await AsyncStorage.removeItem("token");
-    // set({ token: null });
-    // router.push("/login");
-  },
+  // logout: async () => {
+  //   // await AsyncStorage.removeItem("token");
+  //   // set({ token: null });
+  //   // router.push("/login");
+  // },
 
-  loadToken: async () => {
-    // const token = await AsyncStorage.getItem("token");
-    // const user = await AsyncStorage.getItem("user");
-    // if (token) {
-    //   set({ token, user: user ?? "User" });
-    // } else {
-    //   router.replace("/(auth)/login");
-    // }
-  },
+  // loadToken: async () => {
+  //   // const token = await AsyncStorage.getItem("token");
+  //   // const user = await AsyncStorage.getItem("user");
+  //   // if (token) {
+  //   //   set({ token, user: user ?? "User" });
+  //   // } else {
+  //   //   router.replace("/(auth)/login");
+  //   // }
+  // },
 }));

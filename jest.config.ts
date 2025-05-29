@@ -18,10 +18,14 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: [
     "app/**/*.{ts,tsx}",
+    "store/**/*.{ts,tsx}",
     "!**/*.d.ts",
     "!**/node_modules/**",
     "!**/babel.config.js",
     "!**/jest.config.js",
+    "!**/_layout.{ts,tsx}",
+    "!**/**/_layout.{ts,tsx}",
+    "!app/+not-found.tsx",
   ],
   coverageReporters: ["text", "lcov"],
 };
