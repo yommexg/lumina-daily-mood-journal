@@ -66,6 +66,11 @@ export default function LoginScreen() {
         {isLoading && <Spinner />}
 
         <ThemedView style={styles.container}>
+          <Text
+            style={{ color: "red", textAlign: "center", fontSize: 20 }}
+            onPress={() => router.push("/(user)")}>
+            Route to User
+          </Text>
           <MotiView
             from={{ opacity: 0, translateY: -20 }}
             animate={{ opacity: 1, translateY: 0 }}

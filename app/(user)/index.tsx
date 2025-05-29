@@ -1,41 +1,53 @@
 import { Image } from "expo-image";
-import { KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 
 export default function HomeScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{ flex: 1 }}>
-        <ThemedView style={styles.container}>
+      <ParallaxScrollView
+        headerImage={
           <Image
             source={require("@/assets/images/logo.png")}
-            style={styles.logo}
+            style={styles.headerImage}
             contentFit="contain"
           />
-          <ThemedText style={{ fontSize: 20, fontWeight: "condensedBold" }}>
-            Welcome to the Lumina Home Page!!
-          </ThemedText>
-        </ThemedView>
-      </KeyboardAvoidingView>
+        }
+        headerBackgroundColor={{
+          light: "#fff",
+          dark: "#000",
+        }}>
+        {/* <ExternalLink
+          href="https://expo.dev"
+          style={{ color: "red", marginVertical: 20, fontSize: 16 }}>
+          Visit Expo.dev
+        </ExternalLink> */}
+        <ThemedText style={styles.title}>
+          Welcome to the Lumina Home Page!!
+        </ThemedText>
+        <ThemedText>
+          Scroll down to see the parallax effect in action.
+        </ThemedText>
+        {/* Add some extra content to enable scrolling */}
+        {Array.from({ length: 40 }, (_, i) => (
+          <ThemedText key={i}>Item {i + 1}</ThemedText>
+        ))}
+      </ParallaxScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingHorizontal: 24,
+  headerImage: {
+    width: "100%",
+    height: "100%",
   },
-
-  logo: {
-    width: 200,
-    height: 200,
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 16,
   },
 });
