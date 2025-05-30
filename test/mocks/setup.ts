@@ -95,3 +95,11 @@ jest.mock("react-native-toast-message", () => ({
     hide: jest.fn(),
   },
 }));
+
+jest.mock("@/components/HapticTab", () => {
+  const originalModule = jest.requireActual("@/components/HapticTab");
+  return {
+    ...originalModule,
+    isIOS: jest.fn(), // Mock this before usage
+  };
+});
