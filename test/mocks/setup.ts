@@ -47,6 +47,8 @@ jest.mock("expo-router", () => ({
     push: jest.fn(),
     replace: jest.fn(),
   },
+  Link: jest.fn().mockImplementation(({ children }) => children),
+  Href: String,
 }));
 
 jest.mock("@react-native-google-signin/google-signin", () => ({
