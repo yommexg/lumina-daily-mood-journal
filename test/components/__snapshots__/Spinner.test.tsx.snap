@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner renders an ActivityIndicator inside a styled overlay container 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "height": "100%",
+      "justifyContent": "center",
+      "position": "absolute",
+      "width": "100%",
+      "zIndex": 50,
+    }
+  }
+>
+  <View
+    style={
+      {
+        "backgroundColor": "black",
+        "height": "100%",
+        "opacity": 0.4,
+        "position": "absolute",
+        "width": "100%",
+      }
+    }
+  />
+  <ActivityIndicator
+    color="#fff"
+    size="large"
+    testID="spinner-activity-indicator"
+  />
+</View>
+`;

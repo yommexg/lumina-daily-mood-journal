@@ -1,4 +1,4 @@
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet, View } from "react-native";
 
 const Spinner = () => {
   return (
@@ -7,6 +7,7 @@ const Spinner = () => {
       <ActivityIndicator
         size="large"
         color="#fff"
+        testID="spinner-activity-indicator"
       />
     </View>
   );

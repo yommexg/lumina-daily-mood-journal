@@ -6,7 +6,7 @@ module.exports = {
   ],
 
   transformIgnorePatterns: [
-    "node_modules/(?!(jest-)?react-native|@react-native|@expo|expo(nent)?|expo-router|expo-modules-core|@expo/vector-icons|moti)",
+    "node_modules/(?!(jest-)?react-native|@react-native|@expo|expo(nent)?|expo-router|expo-modules-core|@expo/vector-icons|@react-navigation|moti)",
   ],
 
   moduleNameMapper: {
@@ -19,6 +19,7 @@ module.exports = {
   collectCoverageFrom: [
     "app/**/*.{ts,tsx}",
     "store/**/*.{ts,tsx}",
+    "components/**/*.{ts,tsx}",
     "!**/*.d.ts",
     "!**/node_modules/**",
     "!**/babel.config.js",

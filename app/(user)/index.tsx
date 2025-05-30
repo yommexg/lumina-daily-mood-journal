@@ -2,9 +2,11 @@ import { Image } from "expo-image";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
+import { primaryColor } from "@/constants/Colors";
 
 export default function HomeScreen() {
   return (
@@ -23,19 +25,29 @@ export default function HomeScreen() {
         }}>
         <ExternalLink
           href="https://expo.dev"
-          style={{ color: "red", marginVertical: 20, fontSize: 16 }}>
+          style={{ color: primaryColor, marginVertical: 20, fontSize: 16 }}>
           Visit Expo.dev
         </ExternalLink>
-        <ThemedText style={styles.title}>
-          Welcome to the Lumina Home Page!!
-        </ThemedText>
-        <ThemedText>
-          Scroll down to see the parallax effect in action.
-        </ThemedText>
-        {/* Add some extra content to enable scrolling */}
-        {Array.from({ length: 40 }, (_, i) => (
-          <ThemedText key={i}>Item {i + 1}</ThemedText>
-        ))}
+        <Collapsible title="Section 1: Introduction">
+          <ThemedText>
+            This is the content for section 1. You can place any text or
+            components here.
+          </ThemedText>
+        </Collapsible>
+
+        <Collapsible title="Section 2: Details">
+          <ThemedText>
+            Here are more details about the topic. You can even nest other
+            components if needed.
+          </ThemedText>
+        </Collapsible>
+
+        <Collapsible title="Section 3: More Info">
+          <ThemedText>
+            This is another collapsible section. Tapping the title will toggle
+            visibility.
+          </ThemedText>
+        </Collapsible>
       </ParallaxScrollView>
     </SafeAreaView>
   );
