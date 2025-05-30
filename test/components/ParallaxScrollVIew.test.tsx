@@ -11,10 +11,6 @@ jest.mock("@react-navigation/bottom-tabs", () => {
   };
 });
 
-jest.mock("@/components/ui/TabBarBackground", () => ({
-  useBottomTabOverflow: () => 0,
-}));
-
 jest.mock("@/hooks/useColorScheme", () => ({
   useColorScheme: () => "light",
 }));
