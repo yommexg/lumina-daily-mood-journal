@@ -1,13 +1,13 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { isAxiosError } from "axios";
 import { router } from "expo-router";
 import Toast from "react-native-toast-message";
 import { create } from "zustand";
 
 import { BASE_URL } from "./baseApi";
+import { useUserStore } from "./useUserStore";
 
 interface AuthState {
-  user: string;
-  token: string | null;
   isLoading: boolean;
   register: (
     name: string,
@@ -31,13 +31,11 @@ interface AuthState {
     tokenId: string,
     expoPushToken: string | null | undefined
   ) => Promise<void>;
+  loadToken: () => Promise<void>;
   // logout: () => void;
-  // loadToken: () => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
-  user: "",
-  token: null,
   isLoading: false,
 
   register: async (name, email, password, expoPushToken) => {
@@ -137,9 +135,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         expoPushToken: expoPushToken ?? undefined,
       });
 
-      console.log(response.data);
-
-      router.replace("/(user)");
+      const token = response.data?.token;
+      if (token) {
+        await AsyncStorage.setItem("authToken", token);
+        useUserStore.getState().getUser(token);
+      }
 
       Toast.show({
         type: "success",
@@ -178,7 +178,11 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
       );
 
-      router.replace("/(user)");
+      const token = response.data?.token;
+      if (token) {
+        await AsyncStorage.setItem("authToken", token);
+        useUserStore.getState().getUser(token);
+      }
 
       Toast.show({
         type: "success",
@@ -212,13 +216,13 @@ export const useAuthStore = create<AuthState>((set) => ({
   //   // router.push("/login");
   // },
 
-  // loadToken: async () => {
-  //   // const token = await AsyncStorage.getItem("token");
-  //   // const user = await AsyncStorage.getItem("user");
-  //   // if (token) {
-  //   //   set({ token, user: user ?? "User" });
-  //   // } else {
-  //   //   router.replace("/(auth)/login");
-  //   // }
-  // },
+  loadToken: async () => {
+    const token = await AsyncStorage.getItem("authToken");
+
+    if (token) {
+      useUserStore.getState().getUser(token);
+    } else {
+      router.replace("/(auth)");
+    }
+  },
 }));

@@ -21,6 +21,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
 import { usePushNotification } from "@/hooks/usePushNotification";
 import { useAuthStore } from "@/store/useAuthStore";
+import { useUserStore } from "@/store/useUserStore";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -28,6 +29,7 @@ export default function LoginScreen() {
 
   const { expoPushToken } = usePushNotification();
   const { isLoading, login, loginWithGoogle } = useAuthStore();
+  const { isLoading: isUserLoading } = useUserStore();
 
   const handleEmailLogin = () => {
     if (!email || !password) {
@@ -63,14 +65,9 @@ export default function LoginScreen() {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         style={{ flex: 1 }}>
-        {isLoading && <Spinner />}
+        {(isLoading || isUserLoading) && <Spinner />}
 
         <ThemedView style={styles.container}>
-          <Text
-            style={{ color: "red", textAlign: "center", fontSize: 20 }}
-            onPress={() => router.push("/(user)")}>
-            Route to User
-          </Text>
           <MotiView
             from={{ opacity: 0, translateY: -20 }}
             animate={{ opacity: 1, translateY: 0 }}

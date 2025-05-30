@@ -13,6 +13,8 @@ import Toast from "react-native-toast-message";
 import { toastConfig } from "@/config/toastConfig";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { NotificationProvider } from "@/providers/NotificationProvider";
+import { useAuthStore } from "@/store/useAuthStore";
+import { useEffect } from "react";
 
 const googleAuthClientID = process.env.EXPO_PUBLIC_GOOGLE_AUTH_CLIENT_ID;
 
@@ -21,6 +23,12 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+
+  const { loadToken } = useAuthStore();
+
+  useEffect(() => {
+    loadToken();
+  }, [loadToken]);
 
   if (!loaded) {
     return null;
