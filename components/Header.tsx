@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { ThemedText } from "@/components/ThemedText";
 import { blurhash } from "@/constants/BlurHash";
-import { primaryColor } from "@/constants/Colors";
+import { Colors, primaryColor } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useUserStore } from "@/store/useUserStore";
 
@@ -11,12 +11,14 @@ export const Header = () => {
   const { userDetails: user } = useUserStore();
 
   const colorScheme = useColorScheme();
-
-  const backgroundHeaderColor = colorScheme === "dark" ? "#00050F" : "#FFFFFF";
+  const themeColors = Colors[colorScheme ?? "light"];
 
   return (
     <View
-      style={[styles.container, { backgroundColor: backgroundHeaderColor }]}>
+      style={[
+        styles.container,
+        { backgroundColor: themeColors.barBackground },
+      ]}>
       <View style={styles.logoContainer}>
         <Image
           source={require("@/assets/images/icon.png")}
@@ -32,9 +34,21 @@ export const Header = () => {
         </View>
       </View>
 
-      <View style={styles.profileContainer}>
+      <View
+        style={[
+          styles.profileContainer,
+          colorScheme === "light" && {
+            backgroundColor: "#F2F2F2",
+            padding: 4,
+            borderRadius: 20,
+          },
+        ]}>
         <Image
-          source={{ uri: user?.avatar || "https://i.pravatar.cc/100" }}
+          source={
+            user && user.avatar
+              ? { uri: user.avatar }
+              : require("@/assets/images/unknown_user.png")
+          }
           style={styles.avatar}
           contentFit="contain"
           placeholder={blurhash}
@@ -52,6 +66,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
   },
   logoContainer: {
     flexDirection: "row",
@@ -63,7 +79,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   title: {
-    fontSize: 20,
+    fontSize: 26,
     fontWeight: "600",
     color: primaryColor,
   },
@@ -72,12 +88,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   username: {
-    fontSize: 14,
+    fontSize: 13,
     fontStyle: "italic",
   },
   avatar: {
     width: 35,
     height: 35,
-    borderRadius: 18,
+    borderRadius: 35,
   },
 });

@@ -9,8 +9,8 @@ import { primaryColor } from "@/constants/Colors";
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ThemedView style={{ flex: 1 }}>
+    <ThemedView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
         <Header />
         <ExternalLink
           href="https://expo.dev"
@@ -37,7 +37,7 @@ export default function HomeScreen() {
             visibility.
           </ThemedText>
         </Collapsible>
-      </ThemedView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ThemedView>
   );
 }
