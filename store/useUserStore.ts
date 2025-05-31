@@ -34,6 +34,7 @@ export const useUserStore = create<UserState>((set) => ({
       router.replace("/(user)");
     } catch (error) {
       console.log("Get User Details", error);
+      router.replace("/(auth)");
     } finally {
       set({ isLoading: false });
     }

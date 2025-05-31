@@ -5,37 +5,40 @@ import { ThemedText } from "@/components/ThemedText";
 import { blurhash } from "@/constants/BlurHash";
 import { primaryColor } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useUserStore } from "@/store/useUserStore";
 
-const Header = () => {
+export const Header = () => {
+  const { userDetails: user } = useUserStore();
+
   const colorScheme = useColorScheme();
+
   const backgroundHeaderColor = colorScheme === "dark" ? "#00050F" : "#FFFFFF";
 
   return (
     <View
       style={[styles.container, { backgroundColor: backgroundHeaderColor }]}>
-      {/* Left Section */}
-      <View style={styles.leftSection}>
+      <View style={styles.logoContainer}>
         <Image
           source={require("@/assets/images/icon.png")}
           style={styles.logo}
           contentFit="contain"
           placeholder={blurhash}
         />
-
-        <View>
-          <Text style={styles.title}>Energy Funding Service</Text>
-          <ThemedText
-            style={styles.subtitle}
-            numberOfLines={1}
-            ellipsizeMode="tail">
-            Welcome,
+        <View style={{ gap: 2 }}>
+          <Text style={styles.title}>Lumina</Text>
+          <ThemedText style={styles.username}>
+            Hi, {user?.name?.split(" ")[0] || "User"}
           </ThemedText>
         </View>
       </View>
 
-      {/* Right Section */}
-      <View style={styles.rightSection}>
-        {/* You can add user image here later */}
+      <View style={styles.profileContainer}>
+        <Image
+          source={{ uri: user?.avatar || "https://i.pravatar.cc/100" }}
+          style={styles.avatar}
+          contentFit="contain"
+          placeholder={blurhash}
+        />
       </View>
     </View>
   );
@@ -43,48 +46,38 @@ const Header = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingTop: 64,
-    paddingBottom: 16,
-    borderBottomLeftRadius: 16,
-    borderBottomRightRadius: 16,
-    backgroundColor: "transparent",
-    shadowColor: "black",
-    shadowOpacity: 0.3,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 10,
+    paddingVertical: 10,
+    paddingRight: 20,
+    paddingLeft: 10,
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
   },
-  leftSection: {
+  logoContainer: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 16,
   },
   logo: {
     width: 60,
     height: 60,
-    borderRadius: 4,
+    marginRight: 4,
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
-    letterSpacing: 1,
+    fontWeight: "600",
     color: primaryColor,
   },
-  subtitle: {
-    fontSize: 12,
-    fontStyle: "italic",
-    marginTop: 4,
-    textTransform: "capitalize",
-    maxWidth: 100,
-  },
-  rightSection: {
+  profileContainer: {
     flexDirection: "row",
     alignItems: "center",
-    columnGap: 20,
+  },
+  username: {
+    fontSize: 14,
+    fontStyle: "italic",
+  },
+  avatar: {
+    width: 35,
+    height: 35,
+    borderRadius: 18,
   },
 });
-
-export default Header;

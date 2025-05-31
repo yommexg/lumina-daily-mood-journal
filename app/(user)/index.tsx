@@ -1,28 +1,17 @@
-import { Image } from "expo-image";
-import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Collapsible } from "@/components/Collapsible";
 import { ExternalLink } from "@/components/ExternalLink";
-import ParallaxScrollView from "@/components/ParallaxScrollView";
+import { Header } from "@/components/Header";
 import { ThemedText } from "@/components/ThemedText";
+import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
 
 export default function HomeScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ParallaxScrollView
-        headerImage={
-          <Image
-            source={require("@/assets/images/logo.png")}
-            style={styles.headerImage}
-            contentFit="contain"
-          />
-        }
-        headerBackgroundColor={{
-          light: "#fff",
-          dark: "#000",
-        }}>
+      <ThemedView style={{ flex: 1 }}>
+        <Header />
         <ExternalLink
           href="https://expo.dev"
           style={{ color: primaryColor, marginVertical: 20, fontSize: 16 }}>
@@ -48,19 +37,7 @@ export default function HomeScreen() {
             visibility.
           </ThemedText>
         </Collapsible>
-      </ParallaxScrollView>
+      </ThemedView>
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  headerImage: {
-    width: "100%",
-    height: "100%",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-});

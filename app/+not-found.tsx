@@ -11,7 +11,7 @@ export default function NotFoundScreen() {
       <ThemedView style={styles.container}>
         <ThemedText type="title">This screen does not exist.</ThemedText>
         <Link
-          href="/(auth)/login"
+          href="/(auth)"
           style={styles.link}>
           <ThemedText type="link">Go to home screen!</ThemedText>
         </Link>
