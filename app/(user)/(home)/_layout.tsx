@@ -1,16 +1,10 @@
 import { Stack, Tabs } from "expo-router";
 
-export default function AuthLayout() {
+export default function HomeLayout() {
   return (
     <Stack>
       <Tabs.Screen
-        name="login"
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Tabs.Screen
-        name="register"
+        name="index" // This is the Home Page
         options={{
           headerShown: false,
         }}

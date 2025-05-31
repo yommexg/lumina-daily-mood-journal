@@ -2,22 +2,20 @@ import axios from "axios";
 import { create } from "zustand";
 
 import { User } from "@/utils/types";
-import { router } from "expo-router";
 import { BASE_URL } from "./baseApi";
 
 interface UserState {
   userDetails: User | null;
   isLoading: boolean;
-  getUser: (token: string) => Promise<void>;
+  getUser: (token: string) => Promise<boolean>;
 }
 
 export const useUserStore = create<UserState>((set) => ({
   userDetails: null,
   isLoading: false,
-
   getUser: async (token) => {
     if (!token) {
-      return;
+      return false;
     }
 
     set({ isLoading: true });
@@ -31,10 +29,10 @@ export const useUserStore = create<UserState>((set) => ({
 
       set({ userDetails: response.data.data });
 
-      router.replace("/(user)");
+      return true;
     } catch (error) {
       console.log("Get User Details", error);
-      router.replace("/(auth)");
+      return false;
     } finally {
       set({ isLoading: false });
     }

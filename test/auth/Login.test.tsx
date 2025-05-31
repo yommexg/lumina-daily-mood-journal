@@ -1,4 +1,4 @@
-import LoginScreen from "@/app/(auth)";
+import LoginScreen from "@/app/(auth)/login";
 import { useAuthStore } from "@/store/useAuthStore";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { fireEvent, render, waitFor } from "@testing-library/react-native";

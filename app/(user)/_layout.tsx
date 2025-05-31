@@ -15,10 +15,11 @@ export default function UserLayout() {
         tabBarInactiveTintColor: themeColors.icon,
         tabBarStyle: {
           backgroundColor: themeColors.barBackground,
+          borderTopWidth: 0,
         },
       }}>
       <Tabs.Screen
-        name="index" // This is the home
+        name="(home)"
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => (

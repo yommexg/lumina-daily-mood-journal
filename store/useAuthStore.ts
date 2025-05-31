@@ -31,8 +31,7 @@ interface AuthState {
     tokenId: string,
     expoPushToken: string | null | undefined
   ) => Promise<void>;
-  loadToken: () => Promise<void>;
-  // logout: () => void;
+  logout: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -48,7 +47,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         expoPushToken: expoPushToken ?? undefined,
       });
 
-      router.replace("/(auth)");
+      router.replace("/(auth)/login");
 
       Toast.show({
         type: "success",
@@ -59,7 +58,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         const errorMSg = error.response?.data?.message;
 
         if (error.response?.status === 409) {
-          router.replace("/(auth)");
+          router.replace("/(auth)/login");
         }
 
         Toast.show({
@@ -94,7 +93,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
       );
 
-      router.replace("/(auth)");
+      router.replace("/(auth)/login");
 
       Toast.show({
         type: "success",
@@ -105,7 +104,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         const errorMSg = error.response?.data?.message;
 
         if (error.response?.status === 409) {
-          router.replace("/(auth)");
+          router.replace("/(auth)/login");
         }
 
         Toast.show({
@@ -138,7 +137,10 @@ export const useAuthStore = create<AuthState>((set) => ({
       const token = response.data?.token;
       if (token) {
         await AsyncStorage.setItem("authToken", token);
-        useUserStore.getState().getUser(token);
+        const success = await useUserStore.getState().getUser(token);
+        if (success) {
+          router.replace("/(user)/(home)");
+        }
       }
 
       Toast.show({
@@ -181,7 +183,10 @@ export const useAuthStore = create<AuthState>((set) => ({
       const token = response.data?.token;
       if (token) {
         await AsyncStorage.setItem("authToken", token);
-        useUserStore.getState().getUser(token);
+        const success = await useUserStore.getState().getUser(token);
+        if (success) {
+          router.replace("/(user)/(home)");
+        }
       }
 
       Toast.show({
@@ -210,19 +215,10 @@ export const useAuthStore = create<AuthState>((set) => ({
     }
   },
 
-  // logout: async () => {
-  //   // await AsyncStorage.removeItem("token");
-  //   // set({ token: null });
-  //   // router.push("/login");
-  // },
-
-  loadToken: async () => {
-    const token = await AsyncStorage.getItem("authToken");
-
-    if (token) {
-      useUserStore.getState().getUser(token);
-    } else {
-      router.replace("/(auth)");
-    }
+  logout: async () => {
+    set({ isLoading: true });
+    await AsyncStorage.removeItem("authToken");
+    router.replace("/(auth)/login");
+    set({ isLoading: false });
   },
 }));

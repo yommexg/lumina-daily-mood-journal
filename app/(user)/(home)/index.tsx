@@ -6,8 +6,11 @@ import { Header } from "@/components/Header";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { primaryColor } from "@/constants/Colors";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default function HomeScreen() {
+  const { logout } = useAuthStore();
+
   return (
     <ThemedView style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
@@ -37,6 +40,12 @@ export default function HomeScreen() {
             visibility.
           </ThemedText>
         </Collapsible>
+
+        <ThemedText
+          style={{ textAlign: "center", marginVertical: 10 }}
+          onPress={logout}>
+          LOG OUT
+        </ThemedText>
       </SafeAreaView>
     </ThemedView>
   );

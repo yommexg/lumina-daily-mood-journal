@@ -75,102 +75,104 @@ export default function RegisterScreen() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        style={{ flex: 1 }}>
-        {isLoading && <Spinner />}
-        <ThemedView style={styles.container}>
-          <MotiView
-            from={{ opacity: 0, translateY: -20 }}
-            animate={{ opacity: 1, translateY: 0 }}
-            transition={{ type: "timing", duration: 1000 }}
-            style={styles.header}>
-            <Image
-              source={require("@/assets/images/logo.png")}
-              style={styles.logo}
-              contentFit="contain"
-            />
-            <MotiText>
-              <ThemedText style={styles.title}>
-                Create your Lumina account
-              </ThemedText>
-            </MotiText>
-            <MotiText style={styles.subtitle}>
-              Let’s get started on your mood journey.
-            </MotiText>
-          </MotiView>
+    <ThemedView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 }}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          style={{ flex: 1 }}>
+          {isLoading && <Spinner />}
+          <ThemedView style={styles.container}>
+            <MotiView
+              from={{ opacity: 0, translateY: -20 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{ type: "timing", duration: 1000 }}
+              style={styles.header}>
+              <Image
+                source={require("@/assets/images/logo.png")}
+                style={styles.logo}
+                contentFit="contain"
+              />
+              <MotiText>
+                <ThemedText style={styles.title}>
+                  Create your Lumina account
+                </ThemedText>
+              </MotiText>
+              <MotiText style={styles.subtitle}>
+                Let’s get started on your mood journey.
+              </MotiText>
+            </MotiView>
 
-          <MotiView
-            from={{ opacity: 0, translateY: 20 }}
-            animate={{ opacity: 1, translateY: 0 }}
-            transition={{ delay: 600 }}
-            style={styles.form}>
-            <ThemedTextInput
-              placeholder="Username"
-              placeholderTextColor="grey"
-              value={name}
-              onChangeText={setName}
-              style={styles.input}
-            />
-            <ThemedTextInput
-              placeholder="Email"
-              placeholderTextColor="grey"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              style={styles.input}
-            />
-            <ThemedTextInput
-              placeholder="Password"
-              placeholderTextColor="grey"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-              style={styles.input}
-            />
-            <ThemedTextInput
-              placeholder="Confirm Password"
-              placeholderTextColor="grey"
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              secureTextEntry
-              style={styles.input}
-            />
+            <MotiView
+              from={{ opacity: 0, translateY: 20 }}
+              animate={{ opacity: 1, translateY: 0 }}
+              transition={{ delay: 600 }}
+              style={styles.form}>
+              <ThemedTextInput
+                placeholder="Username"
+                placeholderTextColor="grey"
+                value={name}
+                onChangeText={setName}
+                style={styles.input}
+              />
+              <ThemedTextInput
+                placeholder="Email"
+                placeholderTextColor="grey"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                style={styles.input}
+              />
+              <ThemedTextInput
+                placeholder="Password"
+                placeholderTextColor="grey"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+                style={styles.input}
+              />
+              <ThemedTextInput
+                placeholder="Confirm Password"
+                placeholderTextColor="grey"
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                secureTextEntry
+                style={styles.input}
+              />
+              <TouchableOpacity
+                onPress={handleRegister}
+                style={styles.registerButton}>
+                <Text style={styles.registerButtonText}>Register</Text>
+              </TouchableOpacity>
+            </MotiView>
+
+            <ThemedText style={styles.orText}>or</ThemedText>
+
+            {/* Google Signup */}
             <TouchableOpacity
-              onPress={handleRegister}
-              style={styles.registerButton}>
-              <Text style={styles.registerButtonText}>Register</Text>
+              style={styles.googleButton}
+              onPress={signUpWithGoogle}>
+              <Ionicons
+                name="logo-google"
+                size={20}
+                color={primaryColor}
+              />
+              <ThemedText style={styles.googleButtonText}>
+                Sign up with Google
+              </ThemedText>
             </TouchableOpacity>
-          </MotiView>
 
-          <ThemedText style={styles.orText}>or</ThemedText>
-
-          {/* Google Signup */}
-          <TouchableOpacity
-            style={styles.googleButton}
-            onPress={signUpWithGoogle}>
-            <Ionicons
-              name="logo-google"
-              size={20}
-              color={primaryColor}
-            />
-            <ThemedText style={styles.googleButtonText}>
-              Sign up with Google
-            </ThemedText>
-          </TouchableOpacity>
-
-          {/* Link to Login */}
-          <TouchableOpacity onPress={() => router.replace("/(auth)")}>
-            <ThemedText style={styles.createAccountText}>
-              Already have an account?{" "}
-              <Text style={styles.createLink}>Log in</Text>
-            </ThemedText>
-          </TouchableOpacity>
-        </ThemedView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+            {/* Link to Login */}
+            <TouchableOpacity onPress={() => router.replace("/(auth)")}>
+              <ThemedText style={styles.createAccountText}>
+                Already have an account?{" "}
+                <Text style={styles.createLink}>Log in</Text>
+              </ThemedText>
+            </TouchableOpacity>
+          </ThemedView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </ThemedView>
   );
 }
 

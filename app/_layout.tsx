@@ -1,13 +1,15 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
 
+import Spinner from "@/components/Spinner";
 import { toastConfig } from "@/config/toastConfig";
 import { NotificationProvider } from "@/providers/NotificationProvider";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useUserStore } from "@/store/useUserStore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useEffect } from "react";
 
 const googleAuthClientID = process.env.EXPO_PUBLIC_GOOGLE_AUTH_CLIENT_ID;
@@ -17,14 +19,26 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
-  const { loadToken } = useAuthStore();
+  const { getUser } = useUserStore();
 
   useEffect(() => {
-    loadToken();
-  }, [loadToken]);
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem("authToken");
+      if (token) {
+        const success = await getUser(token);
+        if (success) {
+          router.navigate("/(user)/(home)");
+        } else {
+          router.navigate("/(auth)/login");
+        }
+      }
+    };
+
+    checkToken();
+  }, [getUser]);
 
   if (!loaded) {
-    return null;
+    return <Spinner />;
   }
 
   GoogleSignin.configure({
