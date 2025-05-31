@@ -3,13 +3,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Header } from "@/components/Header";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
+import { View } from "react-native";
 
 export default function ProfileScreen() {
   return (
     <ThemedView style={{ flex: 1 }}>
       <SafeAreaView style={{ flex: 1 }}>
         <Header />
-        <ThemedText>This is the Profile Page</ThemedText>
+        <View
+          style={{
+            justifyContent: "center",
+            alignItems: "center",
+            flex: 1,
+          }}>
+          <ThemedText style={{ fontWeight: "bold", fontSize: 20 }}>
+            Profile Page
+          </ThemedText>
+        </View>
       </SafeAreaView>
     </ThemedView>
   );

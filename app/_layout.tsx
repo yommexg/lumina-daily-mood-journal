@@ -31,6 +31,8 @@ export default function RootLayout() {
         } else {
           router.navigate("/(auth)/login");
         }
+      } else {
+        router.navigate("/(auth)/login");
       }
     };
 
